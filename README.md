@@ -177,7 +177,7 @@ re.search(<regex>, text)
 {:.max_width}  # '<e>'
 ```
 ```python
-{:max_widht.min_width}        # '    <e>'
+{:max_width.min_width}        # '    <e>'
 {:max_width.no_of_decimalsf}  # '   3.14'
 ```
 
@@ -185,6 +185,10 @@ re.search(<regex>, text)
 >>> person = {'name': 'Jean-Luc', 'height': 187.1}
 >>> '{p[height]:.0f}'.format(p=person)
 '187'
+```
+
+#### Or:
+```python
 >>> f"{person['height']:.0f}"
 '187'
 ```
@@ -434,9 +438,7 @@ with open(filename, encoding='utf-8') as file:
 ### Write to File
 ```python
 with open(filename, 'w', encoding='utf-8') as file:
-    json.dump(<object>, file)
-    # Or
-    file.write(json.dumps(<object>))
+    json.dump(<object>, file)  # Or: file.write(json.dumps(<object>))  
 ```
 
 SQLite
@@ -696,7 +698,7 @@ import urllib
 ### Run
 ```python
 bottle.run(host='localhost', port=8080)
-bottle.run(host='0.0.0.0', port=80, server='cherypy')
+bottle.run(host='0.0.0.0', port=80, server='cherrypy')
 ```
 
 ### Static request
