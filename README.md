@@ -23,7 +23,6 @@ List
 <list>.extend(<list>)
 <list> += [<el>]
 <list> += <list>
-<bool> = <el> in <list>
 ```
 
 ```python
@@ -60,7 +59,6 @@ Dictionary
 <view>  = <dict>.items()
 <value> = <dict>.get(key, default)         # Returns default if key does not exist.
 <value> = <dict>.setdefault(key, default)  # Same, but also adds default to dict.
-<bool>  = key in <dict>
 <dict>.update(<dict>)
 ```
 
@@ -1414,7 +1412,6 @@ for el in Bar.foreach([1, 2, 3]):
 Basic Script Template
 ---------------------
 ```python
-# Linux or macOS
 #!/usr/bin/env python3
 #
 # Usage: .py 
