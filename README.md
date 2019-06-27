@@ -179,14 +179,13 @@ Point(x=1, y=2)
 Iterator
 --------
 ```python
+from itertools import count, repeat, cycle, chain, islice
+```
+
+```python
 <iter> = iter(<collection>)
 <iter> = iter(<function>, to_exclusive)     # Sequence of return values until 'to_exclusive'.
 <el>   = next(<iter> [, default])           # Raises StopIteration or returns 'default' on end.
-```
-
-### Itertools
-```python
-from itertools import count, repeat, cycle, chain, islice
 ```
 
 ```python
@@ -408,14 +407,12 @@ Format
 
 Numbers
 -------
-* **Int, float and complex are the only number types.**
-* **I use `<num>` to mean any of the above and `<real>` for either int or float.**
-
 ```python
 <int>     = int(<float/str/bool>)    # Or: math.floor(<float>)
 <float>   = float(<int/str/bool>)
 <complex> = complex(real=0, imag=0)  # Or: <real> + <real>j
 ```
+* **`'int(<str>)'` and `'float(<str>)'` raise ValueError on malformed strings.**
 
 ### Basic Functions
 ```python
@@ -454,7 +451,7 @@ shuffle(<list>)
 '0b<bin>' = bin(<int>)         # Or: '0x<hex>' = hex(<int>)
 ```
 
-### Bitwise
+### Bitwise Operators
 ```python
 <int>     = <int> & <int>      # And
 <int>     = <int> | <int>      # Or
