@@ -8,7 +8,7 @@ Comprehensive Python Cheatsheet
 
 Contents
 --------
-**&nbsp;&nbsp;&nbsp;** **1. Collections:** **&nbsp;** **[`List`](#list)**__,__ **[`Dictionary`](#dictionary)**__,__ **[`Set`](#set)**__,__ **[`Tuple`](#tuple)**__,__ **[`Range`](#range)**__,__ **[`Enumerate`](#enumerate)**__,__ **[`Iterator`](#iterator)**__,__ **[`Generator`](#generator)**__.__  
+**&nbsp;&nbsp;&nbsp;** **1. Collections:** **&nbsp;** **[`List`](#list)**__,__ **[`Dictionary `](#dictionary)**__,__ **[`Set`](#set)**__,__ **[`Tuple`](#tuple)**__,__ **[`Range`](#range)**__,__ **[`Enumerate`](#enumerate)**__,__ **[`Iterator`](#iterator)**__,__ **[`Generator`](#generator)**__.__  
 **&nbsp;&nbsp;&nbsp;** **2. Types:** **&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**  **[`Type`](#type)**__,__ **[`String`](#string)**__,__ **[`Regular_Exp`](#regex)**__,__ **[`Format`](#format)**__,__ **[`Numbers`](#numbers)**__,__ **[`Combinatorics`](#combinatorics)**__,__ **[`Datetime`](#datetime)**__.__  
 **&nbsp;&nbsp;&nbsp;** **3. Syntax:** **&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**  **[`Args`](#arguments)**__,__ **[`Inline`](#inline)**__,__ **[`Closure`](#closure)**__,__ **[`Decorator`](#decorator)**__,__ **[`Class`](#class)**__,__ **[`Duck_Types`](#duck-types)**__,__ **[`Enum`](#enum)**__,__ **[`Exceptions`](#exceptions)**__.__  
 **&nbsp;&nbsp;&nbsp;** **4. System:** **&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**  **[`Print`](#print)**__,__ **[`Input`](#input)**__,__ **[`Command_Line_Arguments`](#command-line-arguments)**__,__ **[`Open`](#open)**__,__ **[`Path`](#path)**__,__ **[`Command_Execution`](#command-execution)**__.__  
@@ -1788,6 +1788,7 @@ db.execute('<query>', <dict/namedtuple>)      # Replaces ':<key>'s with values.
 db.executemany('<query>', <coll_of_above>)    # Runs execute() many times.
 ```
 * **Passed values can be of type str, int, float, bytes, None, bool, datetime.date or datetime.datetme.**
+* **Bools will be stored and returned as ints and dates as ISO formatted strings.**
 
 ### Example
 ```python
@@ -1806,7 +1807,7 @@ db.executemany('<query>', <coll_of_above>)    # Runs execute() many times.
 from mysql import connector
 db = connector.connect(host=<str>, user=<str>, password=<str>, database=<str>)
 cursor = db.cursor()
-cursor.execute('<query>')                     # Connector doesn't have execute method.
+cursor.execute('<query>')                     # Only cursor has execute method.
 cursor.execute('<query>', <list/tuple>)       # Replaces '%s's in query with values.
 cursor.execute('<query>', <dict/namedtuple>)  # Replaces '%(<key>)s's with values.
 ```
