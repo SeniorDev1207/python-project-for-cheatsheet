@@ -2478,6 +2478,142 @@ simpleaudio.play_buffer(samples_b, <span class="hljs-number">1</span>, <span cla
 </code></pre></div></div>
 
 
+<div><h2 id="pygame"><a href="#pygame" name="pygame">#</a>Pygame</h2><div><h3 id="basicexample-1">Basic Example</h3><pre><code class="python language-python hljs"><span class="hljs-comment"># $ pip3 install pygame</span>
+<span class="hljs-keyword">import</span> pygame <span class="hljs-keyword">as</span> pg
+pg.init()
+screen = pg.display.set_mode((<span class="hljs-number">500</span>, <span class="hljs-number">500</span>))
+rect = pg.Rect(<span class="hljs-number">235</span>, <span class="hljs-number">235</span>, <span class="hljs-number">30</span>, <span class="hljs-number">30</span>)
+<span class="hljs-keyword">while</span> all(event.type != pg.QUIT <span class="hljs-keyword">for</span> event <span class="hljs-keyword">in</span> pg.event.get()):
+    keys = {pg.K_UP: (<span class="hljs-number">0</span>, <span class="hljs-number">-3</span>), pg.K_RIGHT: (<span class="hljs-number">3</span>, <span class="hljs-number">0</span>), pg.K_DOWN: (<span class="hljs-number">0</span>, <span class="hljs-number">3</span>), pg.K_LEFT: (<span class="hljs-number">-3</span>, <span class="hljs-number">0</span>)}
+    <span class="hljs-keyword">for</span> delta <span class="hljs-keyword">in</span> {keys.get(i) <span class="hljs-keyword">for</span> i, on <span class="hljs-keyword">in</span> enumerate(pg.key.get_pressed()) <span class="hljs-keyword">if</span> on}:
+        rect = rect.move(delta) <span class="hljs-keyword">if</span> delta <span class="hljs-keyword">else</span> rect
+    screen.fill((<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>))
+    pg.draw.rect(screen, (<span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>), rect)
+    pg.display.flip()
+</code></pre></div></div>
+
+
+<div><h3 id="rect">Rect</h3><p><strong>Object for storing rectangular coordinates.</strong></p><pre><code class="python language-python hljs">&lt;Rect&gt;  = pg.Rect(topleft_x, topleft_y, width, height)
+&lt;tuple&gt; = &lt;Rect&gt;.topleft/topright/bottomright/bottomleft/center
+&lt;int&gt;   = &lt;Rect&gt;.x/y/centerx/centery
+</code></pre></div>
+
+
+<pre><code class="python language-python hljs">&lt;Rect&gt;  = &lt;Rect&gt;.move(&lt;tuple&gt;)                   <span class="hljs-comment"># Or: &lt;Rect&gt;.move(&lt;int&gt;, &lt;int&gt;)</span>
+&lt;Rect&gt;.move_ip(&lt;tuple&gt;)                          <span class="hljs-comment"># Or: &lt;Rect&gt;.move_ip(&lt;int&gt;, &lt;int&gt;)</span>
+</code></pre>
+<pre><code class="python language-python hljs">&lt;bool&gt;  = &lt;Rect&gt;.collidepoint(&lt;tuple&gt;)           <span class="hljs-comment"># Or: &lt;Rect&gt;.collidepoint(&lt;int&gt;, &lt;int&gt;)</span>
+&lt;bool&gt;  = &lt;Rect&gt;.colliderect(&lt;Rect&gt;)
+index   = &lt;Rect&gt;.collidelist(&lt;list_of_Rect&gt;)     <span class="hljs-comment"># Returns index of first coliding Rect or -1.</span>
+indices = &lt;Rect&gt;.collidelistall(&lt;list_of_Rect&gt;)  <span class="hljs-comment"># Returns indices of all colinding Rects.</span>
+</code></pre>
+<div><h3 id="surface">Surface</h3><p><strong>Object for representing images.</strong></p><pre><code class="python language-python hljs">&lt;Surface&gt; = pg.display.set_mode((width, height))  <span class="hljs-comment"># Retruns the display surface.</span>
+&lt;Surface&gt; = pg.Surface((width, height))           <span class="hljs-comment"># Creates a new surface.</span>
+&lt;Surface&gt; = pg.image.load(<span class="hljs-string">'&lt;path&gt;'</span>).convert()     <span class="hljs-comment"># Loads an image.</span>
+</code></pre></div>
+
+
+<pre><code class="python language-python hljs">&lt;Surface&gt;.set_at((x, y), &lt;color&gt;)                 <span class="hljs-comment"># Updates pixel.</span>
+&lt;Surface&gt;.fill(&lt;color&gt;)                           <span class="hljs-comment"># Fills the whole surface.</span>
+&lt;Surface&gt;.blit(&lt;Surface&gt;, (x, y))                 <span class="hljs-comment"># Draws passed surface to the surface.</span>
+&lt;Surface&gt; = &lt;Surface&gt;.subsurface(&lt;Rect&gt;)          <span class="hljs-comment"># Returns subsurface.</span>
+</code></pre>
+<pre><code class="python language-python hljs">&lt;Surface&gt; = pg.transform.flip(&lt;Surface&gt;, xbool, ybool)
+&lt;Surface&gt; = pg.transform.rotate(&lt;Surface&gt;, angle)
+&lt;Surface&gt; = pg.transform.scale(&lt;Surface&gt;, (width, height))
+</code></pre>
+<pre><code class="python language-python hljs">pg.draw.rect(&lt;Surface&gt;, color, &lt;Rect&gt;)
+pg.draw.polygon(&lt;Surface&gt;, color, points)
+pg.draw.circle(&lt;Surface&gt;, color, center, radius)
+pg.draw.ellipse(&lt;Surface&gt;, color, &lt;Rect&gt;)
+pg.draw.arc(&lt;Surface&gt;, color, &lt;Rect&gt;, start_angle, stop_angle)
+pg.draw.line(&lt;Surface&gt;, color, start_pos, end_pos, width)
+pg.draw.lines(&lt;Surface&gt;, color, points)
+</code></pre>
+<div><h3 id="font">Font</h3><pre><code class="python language-python hljs">&lt;Font&gt;    = pg.font.SysFont(name, size, bold=<span class="hljs-keyword">False</span>, italic=<span class="hljs-keyword">False</span>)
+&lt;Font&gt;    = pg.font.Font(<span class="hljs-string">'&lt;path&gt;'</span>, size)
+&lt;Surface&gt; = &lt;Font&gt;.render(text, antialias, color, background=<span class="hljs-keyword">None</span>)
+</code></pre></div>
+
+<div><h3 id="sound">Sound</h3><pre><code class="python hljs">&lt;Sound&gt; = pg.mixer.Sound(<span class="hljs-string">'&lt;path&gt;'</span>)  <span class="hljs-comment"># Loads a sound file.</span>
+&lt;Sound&gt;.play()                      <span class="hljs-comment"># Starts playing sound.</span>
+</code></pre></div>
+
+<div><h3 id="basicmariobrothersexample">Basic Mario Brothers Example</h3><pre><code class="python language-python hljs"><span class="hljs-keyword">import</span> collections, dataclasses, enum, io, math, pygame, urllib.request, itertools <span class="hljs-keyword">as</span> it
+<span class="hljs-keyword">from</span> random <span class="hljs-keyword">import</span> randint
+
+P = collections.namedtuple(<span class="hljs-string">'P'</span>, <span class="hljs-string">'x y'</span>)     <span class="hljs-comment"># Position</span>
+D = enum.Enum(<span class="hljs-string">'D'</span>, <span class="hljs-string">'n e s w'</span>)              <span class="hljs-comment"># Direction</span>
+SIZE, MAX_SPEED = <span class="hljs-number">50</span>, P(<span class="hljs-number">5</span>, <span class="hljs-number">10</span>)             <span class="hljs-comment"># Screen size, Speed limit</span>
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_screen</span><span class="hljs-params">()</span>:</span>
+        pygame.init()
+        <span class="hljs-keyword">return</span> pygame.display.set_mode(<span class="hljs-number">2</span> * [SIZE*<span class="hljs-number">16</span>])
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_images</span><span class="hljs-params">()</span>:</span>
+        url = <span class="hljs-string">'https://gto76.github.io/python-cheatsheet/web/mario_bros.png'</span>
+        img = pygame.image.load(io.BytesIO(urllib.request.urlopen(url).read()))
+        <span class="hljs-keyword">return</span> [img.subsurface(get_rect(x, <span class="hljs-number">0</span>)) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> range(img.get_width() // <span class="hljs-number">16</span>)]
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_mario</span><span class="hljs-params">()</span>:</span>
+        Mario = dataclasses.make_dataclass(<span class="hljs-string">'Mario'</span>, <span class="hljs-string">'rect spd facing_left frame_cycle'</span>.split())
+        <span class="hljs-keyword">return</span> Mario(get_rect(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>), P(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>), <span class="hljs-keyword">False</span>, it.cycle(range(<span class="hljs-number">3</span>)))
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_tiles</span><span class="hljs-params">()</span>:</span>
+        positions = [p <span class="hljs-keyword">for</span> p <span class="hljs-keyword">in</span> it.product(range(SIZE), repeat=<span class="hljs-number">2</span>) <span class="hljs-keyword">if</span> {*p} &amp; {<span class="hljs-number">0</span>, SIZE<span class="hljs-number">-1</span>}] + \
+            [(randint(<span class="hljs-number">1</span>, SIZE<span class="hljs-number">-2</span>), randint(<span class="hljs-number">2</span>, SIZE<span class="hljs-number">-2</span>)) <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> range(SIZE**<span class="hljs-number">2</span> // <span class="hljs-number">10</span>)]
+        <span class="hljs-keyword">return</span> [get_rect(*p) <span class="hljs-keyword">for</span> p <span class="hljs-keyword">in</span> positions]
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_rect</span><span class="hljs-params">(x, y)</span>:</span>
+        <span class="hljs-keyword">return</span> pygame.Rect(x*<span class="hljs-number">16</span>, y*<span class="hljs-number">16</span>, <span class="hljs-number">16</span>, <span class="hljs-number">16</span>)
+    run(get_screen(), get_images(), get_mario(), get_tiles())
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">run</span><span class="hljs-params">(screen, images, mario, tiles)</span>:</span>
+    clock = pygame.time.Clock()
+    <span class="hljs-keyword">while</span> all(event.type != pygame.QUIT <span class="hljs-keyword">for</span> event <span class="hljs-keyword">in</span> pygame.event.get()):
+        keys = {pygame.K_UP: D.n, pygame.K_RIGHT: D.e, pygame.K_DOWN: D.s, pygame.K_LEFT: D.w}
+        pressed = {keys.get(i) <span class="hljs-keyword">for</span> i, on <span class="hljs-keyword">in</span> enumerate(pygame.key.get_pressed()) <span class="hljs-keyword">if</span> on}
+        update_speed(mario, tiles, pressed)
+        update_position(mario, tiles)
+        draw(screen, images, mario, tiles, pressed)
+        clock.tick(<span class="hljs-number">28</span>)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update_speed</span><span class="hljs-params">(mario, tiles, pressed)</span>:</span>
+    x, y = mario.spd
+    x += <span class="hljs-number">2</span> * ((D.e <span class="hljs-keyword">in</span> pressed) - (D.w <span class="hljs-keyword">in</span> pressed))
+    x = math.copysign(abs(x) - <span class="hljs-number">1</span>, x) <span class="hljs-keyword">if</span> x <span class="hljs-keyword">else</span> <span class="hljs-number">0</span>
+    y += <span class="hljs-number">1</span> <span class="hljs-keyword">if</span> D.s <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> get_boundaries(mario.rect, tiles) <span class="hljs-keyword">else</span> (<span class="hljs-number">-10</span> <span class="hljs-keyword">if</span> D.n <span class="hljs-keyword">in</span> pressed <span class="hljs-keyword">else</span> <span class="hljs-number">0</span>)
+    mario.spd = P(*[max(-thresh, min(thresh, s)) <span class="hljs-keyword">for</span> thresh, s <span class="hljs-keyword">in</span> zip(MAX_SPEED, P(x, y))])
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update_position</span><span class="hljs-params">(mario, tiles)</span>:</span>
+    old_p, delta = mario.rect.topleft, P(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>)
+    larger_speed = max(abs(s) <span class="hljs-keyword">for</span> s <span class="hljs-keyword">in</span> mario.spd)
+    <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> range(int(larger_speed)):
+        mario.spd = stop_on_collision(mario.spd, get_boundaries(mario.rect, tiles))
+        delta = P(*[a + s/larger_speed <span class="hljs-keyword">for</span> a, s <span class="hljs-keyword">in</span> zip(delta, mario.spd)])
+        mario.rect.topleft = [sum(pair) <span class="hljs-keyword">for</span> pair <span class="hljs-keyword">in</span> zip(old_p, delta)]
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_boundaries</span><span class="hljs-params">(rect, tiles)</span>:</span>
+    deltas = {D.n: P(<span class="hljs-number">0</span>, <span class="hljs-number">-1</span>), D.e: P(<span class="hljs-number">1</span>, <span class="hljs-number">0</span>), D.s: P(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>), D.w: P(<span class="hljs-number">-1</span>, <span class="hljs-number">0</span>)}
+    <span class="hljs-keyword">return</span> {d <span class="hljs-keyword">for</span> d, delta <span class="hljs-keyword">in</span> deltas.items() <span class="hljs-keyword">if</span> rect.move(delta).collidelist(tiles) != <span class="hljs-number">-1</span>}
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">stop_on_collision</span><span class="hljs-params">(spd, bounds)</span>:</span>
+    <span class="hljs-keyword">return</span> P(x=<span class="hljs-number">0</span> <span class="hljs-keyword">if</span> (D.w <span class="hljs-keyword">in</span> bounds <span class="hljs-keyword">and</span> spd.x &lt; <span class="hljs-number">0</span>) <span class="hljs-keyword">or</span> (D.e <span class="hljs-keyword">in</span> bounds <span class="hljs-keyword">and</span> spd.x &gt; <span class="hljs-number">0</span>) <span class="hljs-keyword">else</span> spd.x,
+             y=<span class="hljs-number">0</span> <span class="hljs-keyword">if</span> (D.n <span class="hljs-keyword">in</span> bounds <span class="hljs-keyword">and</span> spd.y &lt; <span class="hljs-number">0</span>) <span class="hljs-keyword">or</span> (D.s <span class="hljs-keyword">in</span> bounds <span class="hljs-keyword">and</span> spd.y &gt; <span class="hljs-number">0</span>) <span class="hljs-keyword">else</span> spd.y)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">draw</span><span class="hljs-params">(screen, images, mario, tiles, pressed)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_frame_index</span><span class="hljs-params">()</span>:</span>
+        <span class="hljs-keyword">if</span> D.s <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> get_boundaries(mario.rect, tiles):
+            <span class="hljs-keyword">return</span> <span class="hljs-number">4</span>
+        <span class="hljs-keyword">return</span> next(mario.frame_cycle) <span class="hljs-keyword">if</span> {D.w, D.e} &amp; pressed <span class="hljs-keyword">else</span> <span class="hljs-number">6</span>
+    screen.fill((<span class="hljs-number">85</span>, <span class="hljs-number">168</span>, <span class="hljs-number">255</span>))
+    mario.facing_left = (D.w <span class="hljs-keyword">in</span> pressed) <span class="hljs-keyword">if</span> {D.e, D.w} &amp; pressed <span class="hljs-keyword">else</span> mario.facing_left
+    screen.blit(images[get_frame_index() + mario.facing_left*<span class="hljs-number">9</span>], mario.rect)
+    <span class="hljs-keyword">for</span> rect <span class="hljs-keyword">in</span> tiles:
+        screen.blit(images[<span class="hljs-number">19</span> <span class="hljs-keyword">if</span> {*rect.topleft} &amp; {<span class="hljs-number">0</span>, (SIZE<span class="hljs-number">-1</span>)*<span class="hljs-number">16</span>} <span class="hljs-keyword">else</span> <span class="hljs-number">18</span>], rect)
+    pygame.display.flip()
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">'__main__'</span>:
+    main()
+</code></pre></div>
+
 <div><h2 id="basicscripttemplate"><a href="#basicscripttemplate" name="basicscripttemplate">#</a>Basic Script Template</h2><pre><code class="python language-python hljs"><span class="hljs-comment">#!/usr/bin/env python3</span>
 <span class="hljs-comment">#</span>
 <span class="hljs-comment"># Usage: .py</span>
